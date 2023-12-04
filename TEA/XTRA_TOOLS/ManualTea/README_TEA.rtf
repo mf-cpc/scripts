@@ -1,0 +1,335 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033\deflangfe1033{\fonttbl{\f0\fnil\fcharset0 Courier New;}}
+{\colortbl ;\red0\green0\blue255;}
+{\*\generator Msftedit 5.41.21.2510;}\viewkind4\uc1\pard\sa200\sl276\slmult1\qc\lang1023\b\f0\fs22 Technological Evidence Acquisition (TEA)\par
+&\b0\par
+\b Batch Run Encapsulation Widget (BREW)\b0\par
+\lang1033 January\lang1023  2013 HoNeY\lang1033  Edition (HNY=Happy New Year)\par
+\pard\sa200\sl276\slmult1\lang1023 ######################################################\par
+VERSION \lang1033 1\lang1023 .\lang1033 0\lang1023 .130107a\lang4105\par
+\lang1023 CREATION DATE: 2009-12-04\par
+LAST MODIFIED: 2013-01\lang1033 -07\par
+\lang1023 MS APPS Hash list current as of: 2012-12-27\lang1033 *\par
+\ul\b *WINDOWS 8 not tested with this tool\par
+\lang1023\ulnone\b0 AUTHOR: Cst. Mark SOUTHBY, #53384\par
+Unit: Island District Integrated Tech Crime Unit (Canada, BC)\par
+EMAIL: mark@southby.ca\lang4105\line\lang1023 ######################################################\par
+\b Please note\b0 : \lang4105 Moonsols is licensed software. \par
+\lang1023 You must purchase a copy of FDPro first. \par
+Copy \lang4105 win32dd\lang1023 .exe\lang4105  / win32dd.sys /win64dd.exe / win64.sys\lang1023  to same folder as \lang4105 TEA\lang1023  and rename to \lang4105 have !! prefix (ie !!win32dd.exe)\par
+\par
+\lang1023 FDPro is licensed software from HBGary. \par
+You must purchase a copy of FDPro first\lang4105  same procedure as above (copy and rename to !!fdpro.exe)\par
+\lang1023 ######################################################\par
+\lang1033 New to Version 1.0.130107a\par
+- Fixed bug in Brew where exisiting config file created issues\par
+- reincluded missing sys files\par
+- Fixed Verify_Tools.cmd so it wouldn't look for !! sys files (incorrect)\par
+- Updated tea & man tea version numbers\par
+- Added fastdumpx86.sys to md5 list. Known issue: as I do not have all md5 values for this file, it is NOT checked during verifying tools.\par
+Thanks Nick for pointing these out!\lang4105\par
+\lang1023 ######################################################\par
+\lang1033 New to Version 1.0.121227a: \par
+\b - Updated Hash List\line\b0\par
+- Fixed hash bug in verify tools where win64.exe was not being verified correctly.**\line\par
+- Extensive updates to BREW and TEA to work with dumpit, FDPro, Moonsols registered and WinEnCap.\line\par
+- Due to lack of testing with this new version, Old_BREW and OLD_TEA included 'just in case' unforeseen issues arrise.\par
+- Tested TEA without registered memory tools (and it works!)\par
+- Removed refrence to organization, unit and work email. As not 'approved' or sanctioned, this tool is created for personal use and to be used at ones own risk.\par
+\b Known Issues: \b0 Man_Tea was no updated to work with dumpit. An alternative is to just delete/rename the tea.cfg and run TEA\par
+\par
+\lang1023 ######################################################\lang1033\par
+New to Version 1.0.121221a\par
+Man_Tea used version 0.9.<date> while tea is 1.0.<date>\par
+\b KNOWN ISSUES:\b0  TEA has up to date scripts, MAN_TEA may have some older versions.\par
+\par
+\b New Scripts included\b0\line\par
+\b GETSYSTEM.cmd\b0  - privilege escalation attempt to get a shell as NT AUTHORITY\\SYSTEM \par
+\par
+\b PROMPT.cmd\b0  - Useful prompt shows date and time. Useful for photographing the screen when running commands\par
+\par
+\b unHpak.cmd\b0  - Tool for unpacking FDPro memory dumps\par
+\par
+\b CHECK4KW\b0  - Check for keywords stored in key_words.tea. Also generates a file listing of selected drives which could be useful. \line NOTE: Child Porn related keywords in the default ke_words.tea file\par
+\par
+\b HIBERNATE.cmd \b0 - Force computer to hibernate (dump memory to disk), useful if memory dump fails.\par
+\b UPDATED SCRIPTS\line\b0 Fixed bug in BREW where the configuration was not being displayed at first and had to be redisplayed.\par
+\par
+=====================================================\par
+New to Version 1.0.120513a\line\b VERSION 1\b0\line Added new script files:\line\b\par
+verify_report.cmd\b0  - Once the tool has been run and the results copied back to the analysis machine, this tool will verify the hash values from the output files and the report.\par
+\par
+Updated Script files:\par
+\par
+\b BREW.bat \b0 - Updated to now pre-configure with the file number, exhibit number and investigator name. This should generate reverse compatible config files that should work with the manual TEA batch (which will override the file/exhibit and investigator values generated during the BREW process, but still run the same tools selected)\par
+\par
+\b TEA.BAT \b0 - Runs without prompts.\b\par
+\b0\line =====================================================\lang1023\par
+\lang1033 New to Version 0.9.120329a\par
+Added version number to end report.\par
+=====================================================\lang1023\par
+New to Version 0.9.11\lang1033 1128a\par
+-\tab Code cleaned up in TEA.bat\par
+-\tab Changed how windows 7 tools hashed (only hashed if going to be run, previous versions always hashed the files even if not required)\par
+-\tab Allowed options to force run tool even if admin or system not detected\par
+-\tab Added a check so if the exhibit/file number is incorrect you can change it rather than ctrl-c\par
+-\tab Removed all pwdump code from tea.bat (still remnants remain in other batches but should be commented out)\par
+=====================================================\lang1023\par
+\lang4105\par
+\lang1023 New to Version 0.9.11\lang1033 1127a\par
+\tab - PWDUMP disabled due to instability, EAU and virus scanner conflicts. some changes made to work with winxp 32bit, etc.\par
+=====================================================\lang1023\par
+\par
+New to Version 0.9.11\lang1033 1124a\par
+\tab - Auto Check to see if tools running in Admin/SYSTEM mode, wont allow you to continue unless user is ADMINISTRATOR or SYSTEM (so if the user has "admin" privileges, they still aren't a true admin in the eyes of windows 7)\par
+\tab - Command to escalate command prompt to SYSTEM using PSExec\par
+\tab - Added PWDump7 (Dump windows 7 password hashes from SAM file for cracking later if needed)\par
+\par
+files added: libeay32.dll (Required by PWDUMP7)\par
+\tab\tab\tab pwdump7.exe renamed to !!pwdump7.exe\par
+=====================================================\lang1023\par
+New to Version 0.9.11\lang1033 1123a\par
+\tab - Auto Check to see if tools running in Admin/SYSTEM mode, wont allow you to continue unless user is ADMINISTRATOR or SYSTEM (so if the user has "admin" privileges, they still aren't a true admin in the eyes of windows 7)\par
+\tab - Command to escalate command prompt to SYSTEM using PSExec\par
+\tab - Added PWDump7 (Dump windows 7 password hashes from SAM file for cracking later if needed)\par
+\par
+files added: libeay32.dll (Required by PWDUMP7)\par
+\tab\tab\tab pwdump7.exe renamed to !!pwdump7.exe\par
+=====================================================\lang1023\par
+New to Version 0.9.11\lang1033 1007a\par
+-\tab Added Admin check and reminder to run as Admin prior to running tool. I have found that 90% of issues are because the user (me)  has forgotten to right-click run as admin.\par
+-\tab Changed Exhibit# to Exhibit# OR 1word Description (sometimes we don\rquote t have an exhibit number yet)\par
+-\tab Changed text for vista/7 mode to yellow\par
+\par
+=====================================================\par
+\lang1023 New to Version 0.9.110\lang1033 711a\par
+\pard Replaced unsupported \lang4105 getip.EXE by DiamondCS Freeware Console Tools ({\field{\*\fldinst{HYPERLINK "www.diamondcs.com.au"}}{\fldrslt{\ul\cf1 www.diamondcs.com.au}}}\f0\fs22 ) with freeware/opensource tool curl.exe\par
+As there are many versions of CURL, I chose (curl 7.21.6 [SSL disabled] Dirk Paehl) due to its small memory footprint (391kb) and compatibility with 32bit and 64 architecture. I am disappointed I had so many issues with getip, as it was only 15kb. As it is no longer supported, some virus scanners flag it and on the off chance the HASH had changed on me, I felt it necessary to replace the tool. The !!getip tool will be left, however it will not be an option when running brew. If you REALLY want it to run, you can add the following line to the tea.cfg. \par
+\par
+rungetip=1\par
+\lang1033\par
+\lang4105 I am also replacing the domain where the IP was obtained from to ip.appspot.com which displays a simple IP number with no frills. Eventually I plan on having my own URL which I control, however in the mean time I have validated that ip.appspot.com is working to show the external IP of the client visiting that site.\par
+\lang1033\par
+------------------------------------------------------------\par
+\lang1023 New to Version \lang1033 0.9.\lang1023 110525b\par
+- Added pause after FDPro run, this is to ensure you are running an Admin elevated command prompt. In vista/7 you can right click and do run as admin, however in XP sp3 this is harder and needs to use a runas command. Created a small 'user elevation script' called "admin-overide.cmd" - this will add an admin user (ITCU) to launch a command line prompt with the proper rights in XP.\par
+- Added "chk_admin_rights.bat" - tells you if user accound will be able to successfully run "admin-overide.cmd", I hope to combine these two scripts in the future.\par
+- Fixed "goto not expected" error. A null character that looked like a space was messing it about. Probably because it had been copy and pasted from word pad at some time.\par
+- Added ipconfig /displaydns - this shows recently visited sites. No known enscripts can get this and the data is not written to the hard disk in the same format.\par
+- Added un_hpak.bat script for uncompressing FDPro hpak files\par
+- Left  "TEA-old_working.bat" just incase too many bugs in this version\par
+\lang9\b KNOWN ISSUES WITH TEA:\b0\line - Cannot add own tools easily\line - Cannot change order of tools easily\line - Requires FDPro ($100)\par
+- Windows 7/Vista 32bit dont work when using winen for memory dump, must run manually.\line - Current version \b DriveID\b0  does not detect windows 7 64bit BitLocker successfully, so it has been removed and will show an error of Hash Mismatch during tool verification. EDD will run instead, it does detect bitlocker. If you have a version that works, rename it to !!drive and edit "verify_tools.cmd" (I suggest notepad++) - uncomment (delete the ::) lines: 48, 79, 110, 144, 175, 206, 210-216 and comment line 205\lang1023\par
+######################################################\par
+\b End User Licence Agreement\par
+\b0 All the \lang1033 executable\lang1023  files (EXE) are tools whos own licences you must agree to prior to utilizing them. This EULA only refers to: \par
+TEA.bat, BREW.bat, verify_tools.cmd, !haslist.tea !toolshash.tea and tea.cfg herein refered to as "these scripts"\par
+These files are provided for Law Enforcement use only. \par
+They are without warranty or claim of any sort. \line As a forensic professional it is your responsibility to verify your tools. \par
+These scripts are \b NOT disclosable\b0  and to be guarded as investigational techniques, similar to blackberry analysis tools and other memory analysis tools (such as one named after a different caffinated beverage).\line The batches can be used and modified without permission for Law Enforcement purposes, however please give credit where credit is due if using significant parts of the batch. \par
+Please email the author any modifications, suggestions or comments so he may learn and expand upon his programming/scripting skills..\par
+######################################################\par
+\b BRIEF OVERVIEW\par
+\b0 A batch file created to run numerous tools\par
+useful for collecting information on a running (live) system.\par
+\par
+\b Key features include:\par
+- Ability to catch app if no admin rights present and able to launch elevated command prompt.\par
+\b0 - Ability to configure which tools to run\par
+- Ability to detect "XP" or "Vista" architecture\par
+- Ability to hash "VISTA/Windows 7" tools on the host machine to ensure they are not compromised with malware\par
+(Hashes obtained from {\field{\*\fldinst{HYPERLINK "http://www.faultwire.com/file_report/<tool_name.exe>.html"}}{\fldrslt{\ul\cf1 http://www.faultwire.com/file_report/<tool_name.exe>.html}}}\f0\fs22 )\par
+- Works with most popular 32 bit and 64 bit Windows Operating Systems\par
+- Integrates HBGary's FDPro to capture memory, memory and page, or to skip entirely.\par
+- Easily run the tool on many exhibits from the same root directory without \par
+overwriting previously captured data\par
+- All output has time and date taken from host computer, and results are MD5 hashed\par
+- Integrates with getip to show which external ip address is seen from the internet.\par
+- Written as a BATCH,  so source code can be viewed and modified if needed with minimal programming skill.\par
+\par
+\par
+\b QUICK RUN:\par
+\b0 - Run BREW\lang4105  to set configuration and verify tools\par
+\lang1023 - Select utilities you wish to run at the scene\par
+- copy files to an NTFS formatted USB drive over 32GB in size (Preferably an external HDD. 32GB is the minimum due to larger 64bit OS machines becoming more popular)\par
+- ensure you can run Command Prompt in Administrative mode. click Start-All Programs \par
+- Accessories and right click "command prompt" and select run as Administrator. \par
+- go to the USB drives drive letter (eg: e:) then type "TEA" \par
+- Follow onscreen prompts\par
+\par
+\par
+\b DETAILED DESCRIPTION: \par
+\b0 This tool will run all tools from the USB (XP Mode) if \par
+the OS version is detected as: 95, 98, ME, XP, NT, 2000, 2003.\par
+Windows Vista/7 compatibility: The newer versions of windows prevent system tools being run outside of the Windows/System32 directory. This tool will hash those tools and compare them to a list of known hash values for those applications. \par
+\par
+If the OS version isn't detected as XP Mode and the Hash values  do not match, then those tools will be skipped. You can always run them\par
+manually at the scene.\par
+\par
+\b MEMORY CAPTURE:\par
+\b0 This tool perfers to use FDPro to capture memory and page files (or just memory, or skip \par
+altogether)\par
+Please note, FDPro is licensed software from HBGary. \par
+You must purchase a copy of FDPro first. \par
+Copy FDPro.exe to same folder as this batch file and rename to !!FDPro.exe\par
+\par
+If you do not have FDPro, winen and winen64 are included and will capture memory as an E01, but not the pagefile.\par
+FDPro is the preferred tool due to its flexibility to capture page files, has a smaller memory footprint and doesn't install a service on the suspect machine. (Which is better for covert operations too).\par
+\par
+\b CONFIGURATION:\b0\par
+To set up a configuration file, run BREW on your forensic machine, this will generate \par
+the tea.cfg file.\par
+Copy contents (BREW batch no longer required) to a freshly formatted NTFS USB drive \par
+32GB or larger.\par
+\par
+TEA will detect if the system is running XP or VISTA architecture. \par
+If XP architecture is detected, it will run all the tools off of the USB drive.\par
+If VISTA/Windows 7 is detected, it will hash and verify the local tools prior to \par
+running them to ensure they are not compromised.\par
+ \par
+All evidence gathered will be placed in an output folder which resides in a parent \par
+folder named the file & exhibit number.\par
+This allows for multiple exhibits from the same file to be acquired to the same USB \par
+drive without the risk of overwriting prior captured data.\par
+\par
+All the individual tool outputs are written to their own text file, this is incase \par
+the system crashes prior to completion.\par
+All individual output files are then hashed with their hash values written to a \par
+"HASH_VALUES.txt" \par
+All outputs are accumulated into one report in the parent folder, this includes a MD5 \par
+hash of the "HASH_VALUES.txt" this allows for the data to be verified at a later \par
+date.\par
+\par
+########################################################\par
+\b OPTIONAL TOOLS:\par
+\b0\par
+IPCONFIG /ALL   :  (Recommend) Shows network settings, such as local ip address, MAC address and a good indicator if Virtual Machines are installed\par
+\par
+IPCONFIG /DISPLAYDNS   :  (Recommend) Shows sites the computer has recently connected to.s\par
+\par
+AT\tab\tab :  Displays Scheduled Applications\lang4105\par
+\par
+DRIVEID\tab : encryption detection tool. So far tests show this tool fails to detect bitlocker. Current versions do not distribute this tool however TEA is made to work with it if found. (!!driveid.exe).\par
+\par
+EDD\tab\tab : Tests have shown it detects bitlocker. If you prefer to use this tool, rename !!Driveid.exe to something else.\par
+\lang1023\par
+ROUTE PRINT\tab :  Show Routing Tables\par
+\par
+NETSTAT -ABO\lang4105 N\lang1023\tab :  Network Protocol Statistics (What Applications are connected or \par
+listening to which ip / port)\par
+\par
+NET SESSIONS\tab :  Open network sessions\par
+\par
+NET VIEW\tab :  (Recommend) Discoverable Devices on the Network, such as a hidden \par
+NAS\par
+\par
+NET SHARE\tab :  (Recommend) Open shares\par
+\par
+ARP -A\tab\tab :  MAC Connections\par
+\par
+NBTSTAT -N\tab :  Netbios Names in cache\par
+\par
+OPENPORTS\tab :  Tool by DiamondCS console tools showing open ports, similar to \par
+NETSTAT -ABO\lang4105 N\par
+\lang1023\par
+PSLOGGEDON /ACCEPTEULA\tab : Sysinternals tool to show who is logged on. Times don't \par
+appear to work with Windows VISTA/7\par
+\par
+PSLIST -T\tab :  (Recommend) Sysinternals tool which shows processes running, \par
+useful for finding encryption tools\par
+\par
+SYSTEMINFO\lang4105  \endash LINES -PATH\lang1023\tab :  Shows Host name, operating system, system patches system time, \par
+domain, timezone, memory and network card MAC info\par
+\par
+PSINFO -H /ACCEPTEULA\tab : Sysinternals tool to show system patches, don't run if \par
+running system info\par
+\par
+WHOAMI /USER /SID\tab : Shows user name and SID\par
+\par
+GETMAC /V\tab :  Shows MAC address and transport name, don't run if running \par
+SYSTEMINFO or IPCONFIG\par
+\par
+:: GETIP\tab\tab : (Recommend) Tool from DiamondCS that connects to \par
+\lang255{\field{\*\fldinst{HYPERLINK "http://www.showmyip.com/simple/"}}{\fldrslt{\ul\cf1 http://www.showmyip.com/simple/}}}\lang1023\f0\fs22   and obtains externally seen IP address\par
+\par
+^^This tool been replaced by CURL\par
+\par
+FDPro\tab\tab : HBGary memory dump tool. Ability to dump larger than 4GB memory \par
+files with pagefile. As physical memory and the pagefile are seen as one large \par
+virtual memory, it is highly recommended you capture the PAGEFILE with the memory. A \par
+page file must be seized at the same time as the memory. Attempting to analyze a \par
+pagefile from a turned off computer with memory seized prior to the shutdown most \par
+likely will not work or cause numerous errors which may result in evidence never \par
+being found.\par
+\par
+WINEN & WINEN64:\tab EnCase's answer to memory capture. Does not capture the page file. Does create e01 files where the hash can be seen in encase under report. If you perfer to use this tool to FDPro, just rename !!FDPro.exe to something else.\par
+########################################################\par
+\b MANDATORY TOOLS\par
+\b0\par
+MD5SUM\tab\tab :  Creates MD5 hash of output files and verifies VISTA/7 tools\par
+\par
+NOW\tab\tab :  Creates time and date stamps on report files\par
+\par
+CMD\tab\tab :  Command Prompt is run from the host system. If Command Prompt is \par
+infected, chances are the library s that the RUN command or Explorer calls upon will \par
+also be compromised. \par
+\par
+########################################################\par
+\b BONUS TOOLS\b0  INCLUDED IN FOLDER BUT NOT UTILIZED BY TEA\par
+\lang4105\par
+\lang1023\par
+!!crypthunter\tab\tab -  An encryption seeking application\par
+!!strings\tab - Sysinternals tool for finding a word/words in files of a designated folder\lang4105\line !!sniffer\tab\tab\tab - A packet capture tool \ldblquote !!sniffer -c -t 30 -0 evidencefolder\rdblquote\b\par
+\lang1023\b0 ########################################################\lang4105\par
+\lang9\par
+\lang4105\page\b TRUSTED TOOL HASH VALUES.\par
+Please note, if you wish to use an updated tool, you must update the hash value in !toolshash.tea \par
+\b0\par
+33f9b0e02d9d93f920605d02fb53f3fd *arp.exe v5.1.2600.0 (xp, sp1,2,3)\par
+ff90eec0fab78482be97c5637fef4090 *at.exe v5.1.2600.5512 (xp sp3)\par
+fdfc17b65e4cc4920ad4de043eca1926 *!!crypthunter.exe v.0.7\par
+03bf926abf3604a9552132445eb8edf3 *!!driveid.exe\par
+335be441ae0a90af5565f55bf332cc99 *!!EDD.exe v1.1\tab\par
+c16e5792c011e65496ecd85712f36f6b *!!FDPro.exe v2.0.0.0194\par
+925b6dab3837d4b934766c7fa526ee25 *!!getip.exe \par
+72d1890e6f0cd5c3cf05a1f1dbc598d9 *!!getmac.exe\par
+7f7c195e9e5e81eb7f39a32cd7d637cf *ipconfig.exe v5.1.2600.2180 (xp sp2)\par
+29ab650f56718d24673e35edb4d5446d *!!md5sum.exe\par
+4827686e0dae2c302b02578df7941b15 *!!nbtstat.exe\par
+29ed429a12deeaee5e40307c5215e8d8 *net.exe v5.1.2600.2180 (xp sp2)\par
+8a7ee413726790398d6b315b7cfb5b0a *netstat.exe v5.1.2600.5512 (xp sp3)\par
+fa32fb39c1ddb58fe8d6d945754ff036 *!!now.exe\par
+3496cddd2e08355efc714842a8826907 *!!openfiles.exe\par
+77d7dbc1b29a04b63395f1fbf662ba75 *!!openports.exe\par
+cb623488009f084ec53cb62e45cbcf72 *!!psfile.exe V1.02\par
+af4ecbb4470223db83e47a81bcc118ff *!!Psinfo.exe V1.75\par
+61fd7759f215f9f88ae88525fd30af21 *!!pslist.exe V1.28\par
+6500c15f856bbfd0b28bd4ebf6e1662a *!!psloggedon.exe V1.33\par
+67d442f0dbee60cfb43f821b554f44f6 *route.exe v5.1.2600.0 (xp sp1,2,3)\par
+79aab0cb02afd6ab639a111f73cf2fd8 *!!sniffer.exe\par
+305e40dee29d261d0a3dc466f2184e35 *!!strings.exe V2.41\par
+faf14a1bb2441d1d845a6f3bf6a9187d *!!systeminfo.exe \par
+e4f1b4e581fb998977d4c9c9080d35f6 *!!WHOAMI.EXE V2.0\par
+3e0869ae6901db530d696a1c2bbb03d9 *!!winen.exe\par
+5a1c0cfdc7c68bf6e13e58abd60c1e98 *!!winen_.sys\par
+cd45ad438b8888f387c9eee0fb48385c *!!winen64.exe\par
+6aa2ed7241d3f00d75baf68572e0ed7b *!!winen64_.sys\par
+75592c89f4279b8e4ef390de70d36478 *!!curl.exe\tab\tab\par
+d1337b9e8bac0ee285492b89f895cadb *!!PwDump7.exe\par
+a7efd09e5b963af88ce2fc5b8eb7127c *libeay32.dll\par
+aeee996fd3484f28e5cd85fe26b6bdcd *!!PsExec.exe\par
+\par
+To extract memory dumps from FDPro hpak files:\par
+**UPDATED: Run unHpak.cmd**\par
+FDPro.exe c:\\memdump.hpak \endash hpak list\par
+FDPro.exe c:\\memdump.hpak \endash hpak extract 0 (for memdump.bin - the memory dump) \par
+FDPro.exe c:\\memdump.hpak \endash hpak extract 1 (for dumpfile.sys - the page file)\par
+\par
+\par
+\par
+\lang1023 NFAR CH\line ms-53384\par
+\par
+\lang9\par
+\lang4105\par
+\pard\sa200\sl276\slmult1\lang9\par
+}
+ 
