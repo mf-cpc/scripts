@@ -57,7 +57,7 @@ function Show-NewCase {
 # $folderName = Show-NewCase -Prompt "Numéro de dossier:" -Title "Nouveau dossier"
 $folderName = Show-NewCase
 
-if ($folderName -ne $null) {
+if ($null -ne $folderName) {
 
     # Set source template folder and destination folder paths
     $templateFolder = "C:\CASE_FOLDER_STRUCTURE"
@@ -92,7 +92,8 @@ if ($folderName -ne $null) {
 
     # Write-Host "New case number is $folderName"
 }
-else {
-    Write-Host "Operation canceled"
-    exit
-}
+# use for debuggin
+# else {
+#     Write-Host "Operation canceled"
+#     exit
+# }
