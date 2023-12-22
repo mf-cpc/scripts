@@ -96,8 +96,3 @@ else {
     Write-Host "Operation canceled"
     exit
 }
-
-# }
-# else {
-#     [System.Windows.Forms.MessageBox]::Show("Operation canceled.", "Canceled", 'OK', 'Information')    
-# }
