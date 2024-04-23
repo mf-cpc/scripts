@@ -57,7 +57,8 @@ read -p "Are you sure you want to proceed? (y/n): " confirm
 if [[ "$confirm" == "y" || "$confirm" == "Y" ]]; then
 	# clone and md5 sum source to destination
 	echo "Cloning source to destination and calculating MD5 checksum of source."
-	md5source=$(sudo dd if="$source_drive" bs=4096 status=progress conv=sync,noerror | tee >(md5sum) | tail -n 1 | cut -d' ' -f1)
+	md5source=$(sudo dd if="$source_drive" of="$destination_drive" bs=4096 conv=sync,noerror status=progress)
+ 	md5source=$(sudo md5sum "$source_drive" |  tail -n 1 | cut -d' ' -f1)
 	echo "=================================> md5sum source:      $md5source"
 	echo "Calculatin destination md5sum"
 	md5destination=$(sudo dd if="$destination_drive" bs=4096 count=$(( $(get_drive_size "$source_drive") / 4096 )) status=progress | md5sum | cut -d" " -f1)
