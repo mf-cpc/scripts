@@ -5,20 +5,24 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Runtime.InteropServices;
 using IWshRuntimeLibrary;
+using System.Reflection;
 
 namespace new_case
 {
 
     public partial class MainWindow : Window
     {
-        string templateFolder = @"C:\CASE_FOLDER_STRUCTURE";
+        string templateFolder = @"D:\CASE_FOLDER_STRUCTURE";
         long totalBytesCopied = 0;
+        private static readonly Version? appVersion = new(Assembly.GetExecutingAssembly().GetName().Version.ToString(2));
         public MainWindow()
         {
             InitializeComponent();
             DateTime dateTime = DateTime.Now;
             string thisYear = dateTime.Year.ToString();
             NewCaseTextBox.Text = thisYear + '-';
+            SourceTextBox.Text = templateFolder;
+            VersionNumber.Content = $"v{appVersion}";
         }
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
@@ -38,7 +42,7 @@ namespace new_case
         }
         private void ExpandWindow()
         {
-            CaseWindow.Height = 280;
+            CaseWindow.Height = 345;
             FileProgressBar.Visibility = Visibility.Visible;
             FileProgressLabel.Visibility = Visibility.Visible;
             TotalProgressBar.Visibility = Visibility.Visible;
@@ -46,7 +50,7 @@ namespace new_case
         }
         private void CollapseWindow()
         {
-            CaseWindow.Height = 140;
+            CaseWindow.Height = 220;
             FileProgressBar.Visibility = Visibility.Hidden;
             FileProgressLabel.Visibility = Visibility.Hidden;
             TotalProgressBar.Visibility = Visibility.Hidden;
@@ -57,26 +61,45 @@ namespace new_case
             ResetProgressBar();
             var fileProgress = new Progress<double>(value => FileProgressBar.Value = value);
             var totalProgress = new Progress<double>(value => TotalProgressBar.Value = value);
-            ExpandWindow();
-            if (!Directory.Exists(templateFolder))
+            string sourcePath;
+            if (SourceTextBox.Text.Length == 0)
             {
-                MessageBoxResult result = MessageBox.Show(@$"The directory {templateFolder} does not exist! Click OK to select a new source path, or Cancel to abort.", "Soure directory not found", MessageBoxButton.OKCancel, MessageBoxImage.Error);
+                sourcePath = templateFolder;
+            }
+            else
+            {
+                sourcePath = SourceTextBox.Text;
+                templateFolder = sourcePath;
+            }
+            string destinationPath = DestinationTextBox.Text;
+            if (!Directory.Exists(sourcePath))
+            {
+                MessageBoxResult result = MessageBox.Show(@$"The source directory {sourcePath} does not exist! Click OK to select a new source path, or Cancel to abort.", "Soure directory not found", MessageBoxButton.OKCancel, MessageBoxImage.Error);
                 if (result == MessageBoxResult.OK)
                 {
-                    System.Windows.Forms.FolderBrowserDialog folderDlg = new()
+                    System.Windows.Forms.DialogResult selectSourceResult = SelectSource();
+                    if (selectSourceResult == System.Windows.Forms.DialogResult.Cancel)
                     {
-                        Description = "Select your Template Directory",
-                        ShowNewFolderButton = false,
-                        UseDescriptionForTitle = true,
-                        RootFolder = Environment.SpecialFolder.Desktop,
-                        InitialDirectory = Environment.CurrentDirectory,
-                    };
-                    System.Windows.Forms.DialogResult dialogResult = folderDlg.ShowDialog();
-                    if (dialogResult == System.Windows.Forms.DialogResult.OK)
-                    {
-                        templateFolder = folderDlg.SelectedPath;
+                        return;
                     }
                     else
+                    {
+                        sourcePath = SourceTextBox.Text;
+                        templateFolder = SourceTextBox.Text;
+                    }
+                }
+                else
+                {
+                    return;
+                }
+            }
+            if ((!Directory.Exists(destinationPath)) || (destinationPath.Length == 0))
+            {
+                MessageBoxResult result = MessageBox.Show(@$"The destination directory {destinationPath} does not exist! Click OK to select a new destination path, or Cancel to abort.", "Destination directory not found", MessageBoxButton.OKCancel, MessageBoxImage.Error);
+                if (result == MessageBoxResult.OK)
+                {
+                    System.Windows.Forms.DialogResult selectDestinationResult = SelectDestination();
+                    if (selectDestinationResult == System.Windows.Forms.DialogResult.Cancel)
                     {
                         return;
                     }
@@ -86,12 +109,17 @@ namespace new_case
                     return;
                 }
             }
-            string destinationPath = @$"C:\{NewCaseTextBox.Text}";
+            ExpandWindow();
+            if (destinationPath.EndsWith($@"\"))
+            {
+                destinationPath = destinationPath.TrimEnd(new[] { '\\' });
+            }
+            destinationPath = @$"{destinationPath}\{NewCaseTextBox.Text}";
             try
             {
-                await CopyFolder(templateFolder, destinationPath, fileProgress, totalProgress);
+                await CopyFolder(sourcePath, destinationPath, fileProgress, totalProgress);
                 CreateShortcut(destinationPath);
-                MessageBox.Show(@$"Completed copying {templateFolder} to {destinationPath}", "Copy Complete!", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(@$"Completed copying {sourcePath} to {destinationPath}", "Copy Complete!", MessageBoxButton.OK, MessageBoxImage.Information);
                 ResetProgressBar();
                 CollapseWindow();
             }
@@ -100,6 +128,60 @@ namespace new_case
                 MessageBox.Show($@"Error attempting to copy files and create shortcut: {ex}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+        private System.Windows.Forms.DialogResult SelectSource()
+        {
+            string selectedPath = "";
+            System.Windows.Forms.FolderBrowserDialog folderDlg = new()
+            {
+                Description = "Select the directory containing the case template",
+                ShowNewFolderButton = true,
+                UseDescriptionForTitle = true,
+                RootFolder = Environment.SpecialFolder.Desktop,
+                InitialDirectory = Environment.CurrentDirectory
+            };
+            System.Windows.Forms.DialogResult result = folderDlg.ShowDialog();
+            if (result == System.Windows.Forms.DialogResult.OK)
+            {
+                selectedPath = folderDlg.SelectedPath;
+                templateFolder = selectedPath;
+            }
+            if (selectedPath != "")
+            {
+                SourceTextBox.Text = selectedPath;
+            }
+            return result;
+        }
+        private void SourcePicker(object sender, RoutedEventArgs e)
+        {
+            SelectSource();
+        }
+        private System.Windows.Forms.DialogResult SelectDestination()
+        {
+            string selectedPath = "";
+            System.Windows.Forms.FolderBrowserDialog folderDlg = new()
+            {
+                Description = "Select the directory where you would like to create the case folder",
+                ShowNewFolderButton = true,
+                UseDescriptionForTitle = true,
+                RootFolder = Environment.SpecialFolder.Desktop,
+                InitialDirectory = Environment.CurrentDirectory
+            };
+            System.Windows.Forms.DialogResult result = folderDlg.ShowDialog();
+            if (result == System.Windows.Forms.DialogResult.OK)
+            {
+                selectedPath = folderDlg.SelectedPath;
+            }
+            if (selectedPath != "")
+            {
+                DestinationTextBox.Text = selectedPath;
+            }
+            return result;
+        }
+        private void DestinationPicker(object sender, RoutedEventArgs e)
+        {
+            SelectDestination();
+        }
+
         public async Task CopyFolder(string sourceFolder, string destinationPath, IProgress<double> fileProgress, IProgress<double> totalProgress)
         {
             try
