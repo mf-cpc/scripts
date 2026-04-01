@@ -5,17 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:new_case"
         mc:Ignorable="d"
-        Title="New Case / Nouveau dossier" Height="140" Width="320"
+        Title="New Case / Nouveau dossier" Height="220" Width="320"
         Name="CaseWindow"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
-    <Grid>
-        <Label x:Name="NewCaseLabel" Content="Case number / Numéro de dossier:" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Width="195" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="NewCaseTextBox" HorizontalAlignment="Center" Margin="0,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="195" Height="20" VerticalContentAlignment="Center" IsTabStop="True" TabIndex="1"/>
-        <Button x:Name="OKButton" Content="OK" HorizontalAlignment="Left" Margin="100,69,0,0" VerticalAlignment="Top" Width="50" VerticalContentAlignment="Center" IsTabStop="True" TabIndex="2" Click="OkButton_Click"/>
-        <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Right" Margin="0,69,100,0" VerticalAlignment="Top" Width="50" VerticalContentAlignment="Center" IsTabStop="True" TabIndex="3" Click="CancelButton_Click"/>
-        <Label x:Name="FileProgressLabel" HorizontalAlignment="Center" Margin="0,98,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Width="276" Height="28" Visibility="Hidden"/>
-        <ProgressBar x:Name="FileProgressBar" HorizontalAlignment="Center" Height="20" Margin="0,131,0,0" VerticalAlignment="Top" Width="276" Visibility="Hidden"/>
-        <Label x:Name="TotalProgressLabel" HorizontalAlignment="Center" Height="28" Margin="0,160,0,0" VerticalAlignment="Top" Width="276" HorizontalContentAlignment="Center" Visibility="Hidden"/>
-        <ProgressBar x:Name="TotalProgressBar" HorizontalAlignment="Center" Height="20" Margin="0,186,0,0" VerticalAlignment="Top" Width="276" Visibility="Hidden"/>
+    <Grid Margin="0,0,0,0">
+        <Label x:Name="NewCaseLabel" Content="Case number / Numéro de dossier:" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top" Width="195" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="NewCaseTextBox" HorizontalAlignment="Center" Margin="0,28,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="196" Height="20" VerticalContentAlignment="Center" IsTabStop="True" TabIndex="1"/>
+        <Label x:Name="SourceLabel" Content="Source:" HorizontalAlignment="Center" Margin="0,45,0,0" VerticalAlignment="Top" Width="195" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="SourceTextBox" HorizontalAlignment="Center" Margin="0,69,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="195" Height="20" VerticalContentAlignment="Center" IsTabStop="True" TabIndex="2"/>
+        <Button Content="&#xE712;" Name="SourcePickerButton" HorizontalAlignment="Left" Margin="262,69,0,0" VerticalAlignment="Top" Width="25" FontFamily="Segoe MDL2 Assets" Height="20" Click="SourcePicker"/>
+        <Label x:Name="DestinationLabel" Content="Destination:" HorizontalAlignment="Center" Margin="0,90,0,0" VerticalAlignment="Top" Width="195" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="DestinationTextBox" HorizontalAlignment="Center" Margin="0,114,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="195" Height="20" VerticalContentAlignment="Center" IsTabStop="True" TabIndex="2"/>
+        <Button Content="&#xE712;" Name="DestinationPickerButton" HorizontalAlignment="Left" Margin="262,114,0,0" VerticalAlignment="Top" Width="25" FontFamily="Segoe MDL2 Assets" Height="20" Click="DestinationPicker"/>
+        <Button x:Name="OKButton" Content="OK" HorizontalAlignment="Left" Margin="100,142,0,0" VerticalAlignment="Top" Width="50" VerticalContentAlignment="Center" IsTabStop="True" TabIndex="2" Click="OkButton_Click"/>
+        <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Right" Margin="0,142,100,0" VerticalAlignment="Top" Width="50" VerticalContentAlignment="Center" IsTabStop="True" TabIndex="3" Click="CancelButton_Click"/>
+        <Label x:Name="FileProgressLabel" HorizontalAlignment="Center" Margin="0,177,0,0" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Width="276" Height="28" Visibility="Visible"/>
+        <ProgressBar x:Name="FileProgressBar" HorizontalAlignment="Center" Height="20" Margin="0,210,0,0" VerticalAlignment="Top" Width="276" Visibility="Hidden"/>
+        <Label x:Name="TotalProgressLabel" HorizontalAlignment="Center" Height="28" Margin="0,239,0,0" VerticalAlignment="Top" Width="276" HorizontalContentAlignment="Center" Visibility="Hidden"/>
+        <ProgressBar x:Name="TotalProgressBar" HorizontalAlignment="Center" Height="20" Margin="0,260,0,0" VerticalAlignment="Top" Width="276" Visibility="Visible"/>
+        <Label HorizontalAlignment="Left" Name="VersionNumber" Margin="265,155,0,0" Content="" VerticalAlignment="Top" Width="29" FontSize="10" />
+
     </Grid>
 </Window>
